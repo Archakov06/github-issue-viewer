@@ -1,0 +1,150 @@
+.issues-wrapper {
+    border-right: 1px solid rgb(228, 228, 228);
+    position: fixed;
+    margin: 0;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+
+
+
+    .issues-item {
+        display: flow-root;
+
+        .row {
+            margin-right: 0px;
+            margin-left: 0px;
+            margin-top: 20px;
+
+
+
+            .nav {
+                justify-content: space-around;
+
+
+                .nav-item {
+                    flex: auto;
+
+                }
+
+                .nav-link {
+                    display: flex;
+                    font-weight: 200;
+                    color: #586069;
+                    place-content: center;
+
+
+                    svg {
+                        align-self: center;
+                        margin-right: 3px;
+
+                        path {
+                            fill: #586069;
+                        }
+                    }
+                }
+
+                .active {
+                    font-weight: normal;
+                    color: #24292e;
+                    text-decoration: underline;
+
+                    svg {
+                        path {
+                            fill: #24292e;
+                        }
+                    }
+                }
+
+                @media (min-width: 0px) and (max-width: 767px) {
+                    width: 100vw;
+                }
+
+                @media (min-width: 768px) and (max-width: 991px) {
+                    width: 30vw;
+                }
+
+                @media (min-width: 992px) and (max-width: 1199px) {
+                    width: 25vw;
+                }
+
+                @media (min-width: 1200px) {
+                    width: 25vw;
+                }
+            }
+        }
+    }
+}
+
+.tab-content {
+    @media (min-width: 0px) and (max-width: 767px) {
+        margin-left: 2vw;
+        margin-right: 2vw;
+        width: 96vw;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        margin-left: 2vw;
+        margin-right: 2vw;
+        width: 26vw;
+    }
+
+    @media (min-width: 992px) {
+        margin-left: 2vw;
+        margin-right: 2vw;
+        width: 21vw;
+    }
+
+}
+
+.finder {
+    place-content: center;
+
+    form {
+        @media (min-width: 0px) and (max-width: 767px) {
+            width: 96vw;
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+            width: 26vw;
+        }
+
+        @media (min-width: 992px) {
+            width: 21vw;
+        }
+
+        .form-group {
+            margin-top: 0px;
+        }
+    }
+
+
+}
+
+
+/* полоса прокрутки (скроллбар) */
+::-webkit-scrollbar {
+    position: relative;
+    width: 5px;
+    /* ширина для вертикального скролла */
+    height: 8px;
+    /* высота для горизонтального скролла */
+    background-color: none;
+}
+
+/* ползунок скроллбара */
+::-webkit-scrollbar-thumb {
+    background-color: #23538694;
+    border-radius: 9em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #253861;
+}
+
+/* Стрелки */
+
+::-webkit-scrollbar-button:vertical:start:decrement {
+    background-color: none;
+}

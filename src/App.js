@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Container } from "react-bootstrap";
+
+import { SearchPanel } from "./components/SearchPanel";
+import { RepoList } from "./components/RepoList";
+import { Loader } from './components/Loader';
+import { IssuesOpen } from './components/issues/issuesOpen';
+import { IssuesPage } from './components/issues/issuesPage';
+
+import "./App.css";
+
+
+
 
 function App() {
+
+  const getRepo = (e) => {
+    e.preventDefault();
+    const repo = e.target.elements.searchBard.value
+  };
+
+
+  const isLoad = true;
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <SearchPanel getRepo={getRepo} />
+      <Container className='RepoList__wrapper'>
+
+
+        {!isLoad ? <Loader /> : <RepoList />}
+        <RepoList />
+        <RepoList />
+
+
+      </Container>
+      {/* < div className="d-flex">
+        <IssuesOpen />
+        <IssuesPage />
+      </div> */}
+
+
+    </div >
   );
 }
 
