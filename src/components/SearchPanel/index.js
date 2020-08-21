@@ -3,11 +3,11 @@ import { Form, Button, Container } from 'react-bootstrap';
 
 import './SearchPanel.scss'
 
-export const SearchPanel = (props) => {
+export const SearchPanel = ({getRepo}) => {
 
   return (
     <Container>
-      <Form onSubmit={props.getRepo} >
+      <Form onSubmit={getRepo} >
         <Form.Group controlId="formBasicEmail">
           <Form.Control type="text" name='searchBard' placeholder="Repository name" />
           <Button variant="primary" type="submit">
