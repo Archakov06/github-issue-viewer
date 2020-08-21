@@ -12,11 +12,18 @@ import "./App.css";
 
 function App() {
   const [repos, setRepos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
+
     const fetchRepos = async () => {
-      const response = await Axios.get("https://api.github.com/search/repositories?sort=stars&q=s");
+      const response = await Axios.get(
+        "https://api.github.com/search/repositories?sort=stars&q=s"
+      );
+
       setRepos(response.data.items);
+      setLoading(false);
     };
 
     fetchRepos();
@@ -29,11 +36,48 @@ function App() {
   return (
     <div>
       <SearchPanel />
-      <Container className="RepoList__wrapper">
-        {repos.map((r) => (
-          <RepoList key={r.id} fullName={r.full_name} description={r.description} forks={r.forks_count} lang={r.language} stars={r.stargazers_count} />
-        ))}
-      </Container>
+
+      {loading ? (
+        <Loader />
+      ) : (
+        <Container className="RepoList__wrapper">
+          {repos
+            .map((r) => (r.language === "C++" ? { ...r, language: "cpp" } : r))
+            .map((r) => (
+              <RepoList
+                key={r.id}
+                fullName={r.full_name}
+                description={r.description}
+                forks={r.forks_count}
+                lang={r.language}
+                stars={r.stargazers_count}
+              />
+            ))}
+        </Container>
+      )}
+
+      {/* {loading ? (
+        <Container className="RepoList__wrapper">
+          {repos.length <= 0
+            ? loading && <Loader />
+            : repos.map((r) => (
+                <RepoList
+                  key={r.id}
+                  fullName={r.full_name}
+                  description={r.description}
+                  forks={r.forks_count}
+                  lang={r.language}
+                  stars={r.stargazers_count}
+                />
+              ))}
+        </Container>
+      ) : (
+        <Container className="search-text-wrapper">
+          <div className="search-text">Search something</div>
+        </Container>
+      )} */}
+
+      {/*  */}
       {/* < div className="d-flex">
         <IssuesOpen />
         <IssuesPage />
