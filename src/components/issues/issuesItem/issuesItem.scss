@@ -1,0 +1,13 @@
+.item-wrapper {
+    border-bottom: 1px solid rgb(206, 206, 206);
+    padding: 5px 5px;
+
+    &:last-child {
+        border-bottom: none;
+        margin-bottom: 30px;
+    }
+
+    .issues-item__tittle {
+        font-size: 20px;
+    }
+}
