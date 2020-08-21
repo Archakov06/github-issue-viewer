@@ -7,6 +7,7 @@ import { RepoList } from "./components/RepoList";
 import { Loader } from "./components/Loader";
 import { IssuesOpen } from "./components/issues/issuesOpen";
 import { IssuesPage } from "./components/issues/issuesPage";
+import useDebounce from "./hooks/Debounce";
 
 import "./App.css";
 
@@ -16,28 +17,30 @@ function App() {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
+  const debouncedSearchTerm = useDebounce(searchText, 1000);
 
   useEffect(() => {
-    setLoading(true);
+    if (debouncedSearchTerm) {
+      setLoading(true);
 
-    const cancelSource = CancelToken.source();
+      const cancelSource = CancelToken.source();
 
-    const fetchRepos = async () => {
-      const response = await Axios.get(
-        `https://api.github.com/search/repositories?sort=stars&q=${searchText}`,
-        {
-          cancelToken: cancelSource.token,
-        }
-      );
+      const fetchData = async () => {
+        const response = await Axios.get(
+          `https://api.github.com/search/repositories?sort=stars&q=${debouncedSearchTerm}`,
+          {
+            cancelToken: cancelSource.token,
+          }
+        );
+        setRepos(response.data.items);
+        setLoading(false);
+      };
 
-      setRepos(response.data.items);
-      setLoading(false);
-    };
+      fetchData();
 
-    fetchRepos();
-
-    return () => cancelSource.cancel("Stop search");
-  }, [searchText]);
+      return () => cancelSource.cancel("Fetch canceled.");
+    }
+  }, [debouncedSearchTerm]);
 
   return (
     <div>
@@ -62,30 +65,6 @@ function App() {
         </Container>
       )}
 
-      {}
-
-      {/* {loading ? (
-        <Container className="RepoList__wrapper">
-          {repos.length <= 0
-            ? loading && <Loader />
-            : repos.map((r) => (
-                <RepoList
-                  key={r.id}
-                  fullName={r.full_name}
-                  description={r.description}
-                  forks={r.forks_count}
-                  lang={r.language}
-                  stars={r.stargazers_count}
-                />
-              ))}
-        </Container>
-      ) : (
-        <Container className="search-text-wrapper">
-          <div className="search-text">Search something</div>
-        </Container>
-      )} */}
-
-      {/*  */}
       {/* < div className="d-flex">
         <IssuesOpen />
         <IssuesPage />
