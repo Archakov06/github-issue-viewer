@@ -10,16 +10,24 @@ import { IssuesPage } from "./components/issues/issuesPage";
 
 import "./App.css";
 
+const CancelToken = Axios.CancelToken;
+
 function App() {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     setLoading(true);
 
+    const cancelSource = CancelToken.source();
+
     const fetchRepos = async () => {
       const response = await Axios.get(
-        "https://api.github.com/search/repositories?sort=stars&q=s"
+        `https://api.github.com/search/repositories?sort=stars&q=${searchText}`,
+        {
+          cancelToken: cancelSource.token,
+        }
       );
 
       setRepos(response.data.items);
@@ -27,15 +35,13 @@ function App() {
     };
 
     fetchRepos();
-  }, []);
 
-  const isLoad = true;
-
-  console.log(repos);
+    return () => cancelSource.cancel("Stop search");
+  }, [searchText]);
 
   return (
     <div>
-      <SearchPanel />
+      <SearchPanel text={setSearchText} />
 
       {loading ? (
         <Loader />
@@ -55,6 +61,8 @@ function App() {
             ))}
         </Container>
       )}
+
+      {}
 
       {/* {loading ? (
         <Container className="RepoList__wrapper">
