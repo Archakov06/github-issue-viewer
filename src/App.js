@@ -16,7 +16,7 @@ const CancelToken = Axios.CancelToken;
 function App() {
   const [repos, setRepos] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchText, setSearchText] = useState("");
+  const [searchText, setSearchText] = useState(null);
   const debouncedSearchTerm = useDebounce(searchText, 1000);
 
   useEffect(() => {
@@ -46,29 +46,41 @@ function App() {
     <div>
       <SearchPanel text={setSearchText} />
 
-      {loading ? (
+      {(loading ? (
         <Loader />
       ) : (
-        <Container className="RepoList__wrapper">
-          {repos
-            .map((r) => (r.language === "C++" ? { ...r, language: "cpp" } : r))
-            .map((r) => (
-              <RepoList
-                key={r.id}
-                fullName={r.full_name}
-                description={r.description}
-                forks={r.forks_count}
-                lang={r.language}
-                stars={r.stargazers_count}
-              />
-            ))}
+          <Container className="RepoList__wrapper">
+            {repos
+              .map((r) => (r.language === "C++" ? { ...r, language: "cpp" } : r))
+              .map((r) => (
+                <RepoList
+                  key={r.id}
+                  fullName={r.full_name}
+                  description={r.description}
+                  forks={r.forks_count}
+                  lang={r.language}
+                  stars={r.stargazers_count}
+                />
+              ))}
+          </Container>
+        ))
+      }
+
+      {(searchText == null ? (
+        <Container className="search-text-wrapper">
+          <div className="search-text">Search something</div>
         </Container>
-      )}
+      ) : (null))}
+
 
       {/* < div className="d-flex">
-        <IssuesOpen />
-        <IssuesPage />
+        <div>
+          <IssuesOpen />
+          <IssuesPage />
+        </div>
       </div> */}
+
+
     </div>
   );
 }

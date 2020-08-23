@@ -4,12 +4,13 @@
   flex-wrap: wrap;
 }
 
-.search-text{
-  font-size: 8vw;
+
+.search-text {
+  font-size: calc(100% + 2vw);
   color: #dadada;
 }
 
-.search-text-wrapper{
+.search-text-wrapper {
   display: flex;
   justify-content: center;
   height: 85vh;

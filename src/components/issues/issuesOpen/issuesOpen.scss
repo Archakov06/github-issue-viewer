@@ -4,123 +4,69 @@
     margin: 0;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
 
 
 
+    .finder {
+        margin: 10px 20px;
+    }
 
-    .issues-item {
-        display: flow-root;
+    .nav-tabs a {
+        flex: auto;
+        margin-top: 1px;
 
-        .row {
-            margin-right: 0px;
-            margin-left: 0px;
-            margin-top: 20px;
+        &:first-child {
+            margin-left: 4px;
 
-
-
-            .nav {
-                justify-content: space-around;
-
-
-                .nav-item {
-                    flex: auto;
-
-                }
-
-                .nav-link {
-                    display: flex;
-                    font-weight: 200;
-                    color: #586069;
-                    place-content: center;
-
-
-                    svg {
-                        align-self: center;
-                        margin-right: 3px;
-
-                        path {
-                            fill: #586069;
-                        }
-                    }
-                }
-
-                .active {
-                    font-weight: normal;
-                    color: #24292e;
-                    text-decoration: underline;
-
-                    svg {
-                        path {
-                            fill: #24292e;
-                        }
-                    }
-                }
-
-                @media (min-width: 0px) and (max-width: 767px) {
-                    width: 100vw;
-                }
-
-                @media (min-width: 768px) and (max-width: 991px) {
-                    width: 30vw;
-                }
-
-                @media (min-width: 992px) and (max-width: 1199px) {
-                    width: 25vw;
-                }
-
-                @media (min-width: 1200px) {
-                    width: 25vw;
-                }
-            }
         }
     }
-}
 
-.tab-content {
+    .issues-content-wrapper {
+        margin-bottom: 20px;
+
+        .issues-content {
+            margin: 10px 20px;
+            overflow-y: auto;
+            max-height: 85vh;
+
+            @media (min-height: 708px) and (max-height: 767px) {
+                height: 78vh;
+            }
+
+            @media (min-height: 400px) and (max-height: 707px) {
+                max-height: 75vh;
+            }
+
+            @media (min-height: 200px) and (max-height: 399px) {
+                max-height: 60vh;
+            }
+
+        }
+    }
+
+
+
+
     @media (min-width: 0px) and (max-width: 767px) {
-        margin-left: 2vw;
-        margin-right: 2vw;
-        width: 96vw;
+        width: 100vw;
     }
 
     @media (min-width: 768px) and (max-width: 991px) {
-        margin-left: 2vw;
-        margin-right: 2vw;
-        width: 26vw;
+        width: 30vw;
     }
 
-    @media (min-width: 992px) {
-        margin-left: 2vw;
-        margin-right: 2vw;
-        width: 21vw;
+    @media (min-width: 992px) and (max-width: 1199px) {
+        width: 25vw;
+    }
+
+    @media (min-width: 1200px) {
+        width: 25vw;
     }
 
 }
 
-.finder {
-    place-content: center;
 
-    form {
-        @media (min-width: 0px) and (max-width: 767px) {
-            width: 96vw;
-        }
-
-        @media (min-width: 768px) and (max-width: 991px) {
-            width: 26vw;
-        }
-
-        @media (min-width: 992px) {
-            width: 21vw;
-        }
-
-        .form-group {
-            margin-top: 0px;
-        }
-    }
-
-
-}
 
 
 /* полоса прокрутки (скроллбар) */

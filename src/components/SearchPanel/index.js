@@ -1,5 +1,5 @@
 import React from "react";
-import { Form, Button, Container } from "react-bootstrap";
+import { Container, InputGroup, FormControl } from "react-bootstrap";
 
 import "./SearchPanel.scss";
 
@@ -10,7 +10,7 @@ export const SearchPanel = ({ getRepo, text }) => {
 
   return (
     <Container>
-      <Form onSubmit={getRepo}>
+      {/* <Form onSubmit={getRepo}>
         <Form.Group controlId="formBasicEmail">
           <Form.Control
             type="text"
@@ -32,7 +32,19 @@ export const SearchPanel = ({ getRepo, text }) => {
             </svg>
           </Button>
         </Form.Group>
-      </Form>
+      </Form> */}
+
+      <InputGroup>
+        <InputGroup.Prepend>
+          <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
+        </InputGroup.Prepend>
+        <FormControl
+          onChange={handleChange}
+          placeholder="Issues search"
+          aria-label="Issues search"
+          aria-describedby="basic-addon1"
+        />
+      </InputGroup>
     </Container>
   );
 };

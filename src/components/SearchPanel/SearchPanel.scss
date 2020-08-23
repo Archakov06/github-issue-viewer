@@ -1,24 +1,24 @@
-.form-group {
-    margin-top: 20px;
+.input-group {
+    margin: 20px 0px;
     display: flex;
 
-    input {
-        border-top-right-radius: 0%;
-        border-bottom-right-radius: 0%;
-    }
+    // input {
+    //     border-top-right-radius: 0%;
+    //     border-bottom-right-radius: 0%;
+    // }
 
-    button {
-        border-top-left-radius: 0%;
-        border-bottom-left-radius: 0%;
-        padding: 0 25px;
-        align-content: center;
-    }
+    // button {
+    //     border-top-left-radius: 0%;
+    //     border-bottom-left-radius: 0%;
+    //     padding: 0 25px;
+    //     align-content: center;
+    // }
 
-    svg {
-        transform: scale(0.7);
+    // svg {
+    //     transform: scale(0.7);
 
-        path {
-            fill: white;
-        }
-    }
+    //     path {
+    //         fill: white;
+    //     }
+    // }
 }
