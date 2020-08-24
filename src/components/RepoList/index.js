@@ -1,15 +1,24 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
+import { IssuesPage } from "../../pages/issuesPage";
+
 import "../language-color.scss";
 import "./RepoList.scss";
 
-export function RepoList({ fullName, forks, lang, stars, description }) {
+export function RepoList({
+  fullName,
+  forks,
+  lang,
+  stars,
+  description,
+  handleClick,
+}) {
   return (
-    <Card>
+    <Card onClick={handleClick}>
       <Card.Body>
         <Card.Title>
-          <a href="/">
+          <a href="">
             <span>{fullName}</span>
           </a>
         </Card.Title>

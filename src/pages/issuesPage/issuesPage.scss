@@ -1,0 +1,26 @@
+.emptyIssues{
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    align-items: center;
+    font-size: calc(100% + 2vw);
+    color: #dadada;
+
+    @media (min-width: 0px) and (max-width: 767px) {
+        margin-left: 0vw;
+        display: none;
+    }
+    
+    @media (min-width: 768px) and (max-width: 991px) {
+        margin-left: 31vw;
+    }
+    
+    @media (min-width: 992px) and (max-width: 1199px) {
+        margin-left: 26vw;
+    }
+    
+    @media (min-width: 1200px) {
+        margin-left: 26vw;
+    }
+}
+
