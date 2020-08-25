@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { Container } from "react-bootstrap";
 import Axios from "axios";
 import { useHistory } from "react-router-dom";
+import InfiniteScroll from "react-infinite-scroller";
 
 import { SearchPanel } from "../../components/SearchPanel";
 import { RepoList } from "../../components/RepoList";
@@ -49,19 +50,29 @@ export const SearchPage = () => {
         <Loader />
       ) : (
         <Container className="RepteoList__wrapper">
-          {repos
-            .map((r) => (r.language === "C++" ? { ...r, language: "cpp" } : r))
-            .map((r) => (
-              <RepoList
-                key={r.id}
-                fullName={r.full_name}
-                description={r.description}
-                forks={r.forks_count}
-                lang={r.language}
-                stars={r.stargazers_count}
-                handleClick={() => history.push(`/issues/${r.full_name}`)}
-              />
-            ))}
+          <InfiniteScroll
+            hasMore={true}
+            initialLoad={false}
+            loadMore={() => {
+              console.log("Loading more...");
+            }}
+          >
+            {repos
+              .map((r) =>
+                r.language === "C++" ? { ...r, language: "cpp" } : r
+              )
+              .map((r) => (
+                <RepoList
+                  key={r.id}
+                  fullName={r.full_name}
+                  description={r.description}
+                  forks={r.forks_count}
+                  lang={r.language}
+                  stars={r.stargazers_count}
+                  handleClick={() => history.push(`/issues/${r.full_name}`)}
+                />
+              ))}
+          </InfiniteScroll>
         </Container>
       )}
 

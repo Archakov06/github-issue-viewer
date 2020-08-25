@@ -3,8 +3,7 @@
     position: fixed;
     margin: 0;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
+    overflow-wrap: break-word;
     .btn{
         background-color:  transparent !important;
     }
@@ -58,7 +57,7 @@
 
         .issues-content {
             margin: 10px 20px;
-            overflow-y: auto;
+            overflow: auto;
             max-height: 75vh;
 
             @media (min-height: 708px) and (max-height: 767px) {
