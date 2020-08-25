@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroller";
 
 import { IssuesOpen } from "../../components/issues/issuesOpen";
 import { IssuesContent } from "../../components/issues/issuesContent";
 import "./issuesPage.scss";
 import Axios from "axios";
-import { Tabs, Tab, Card, Spinner } from "react-bootstrap";
+import { Tabs, Tab, Card, Spinner, Button } from "react-bootstrap";
 
 const Issues = ({ owner, repo, closed }) => {
   const [issues, setIssues] = useState({ total_count: 0, items: [] });
@@ -29,7 +29,9 @@ const Issues = ({ owner, repo, closed }) => {
 
   console.log(issues);
 
-  useEffect(() => fetchIssues(), []);
+  useEffect(() => {
+    fetchIssues();
+  }, []);
 
   return (
     <div>
@@ -61,14 +63,21 @@ const Issues = ({ owner, repo, closed }) => {
 export const IssuesPage = () => {
   const { owner, repo } = useParams();
 
+  const history = useHistory();
+
   return (
-    <Tabs defaultActiveKey="open">
-      <Tab eventKey="open" title="Open">
-        <Issues owner={owner} repo={repo} closed="open" />
-      </Tab>
-      <Tab eventKey="closed" title="Closed">
-        <Issues owner={owner} repo={repo} closed="closed" />
-      </Tab>
-    </Tabs>
+    <div className="issueMenu">
+      <Button variant="light" onClick={() => history.goBack()}>
+        Back
+      </Button>
+      <Tabs defaultActiveKey="open">
+        <Tab eventKey="open" title="Open">
+          <Issues owner={owner} repo={repo} closed="open" />
+        </Tab>
+        <Tab eventKey="closed" title="Closed">
+          <Issues owner={owner} repo={repo} closed="closed" />
+        </Tab>
+      </Tabs>
+    </div>
   );
 };

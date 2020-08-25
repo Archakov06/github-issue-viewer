@@ -24,3 +24,21 @@
     }
 }
 
+
+.issueMenu{
+    @media (min-width: 0px) and (max-width: 767px) {
+        width: 100vw;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        width: 30vw;
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        width: 25vw;
+    }
+
+    @media (min-width: 1200px) {
+        width: 25vw;
+    }
+}
