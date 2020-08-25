@@ -32,7 +32,7 @@ export const SearchPage = () => {
             cancelToken: cancelSource.token,
           }
         );
-        setRepos(response.data.items);
+        setRepos(response.data);
         setLoading(false);
       };
 
@@ -42,45 +42,56 @@ export const SearchPage = () => {
     }
   }, [debouncedSearchTerm]);
 
+  const fetchRepo = async (page) => {
+    if (!loading) {
+      setLoading(true);
+
+      const page = repos.items.length / 30;
+      const response = await Axios.get(
+        `https://api.github.com/search/repositories?sort=stars&q=${debouncedSearchTerm}&?page=${page}&per_page=30`
+      );
+      setRepos({
+        ...repos,
+        items: [...repos.items, ...response.data.items],
+      });
+      setLoading(false);
+    }
+  };
+
   return (
     <div>
       <SearchPanel text={setSearchText} />
 
-      {loading ? (
-        <Loader />
-      ) : (
-        <Container className="RepteoList__wrapper">
-          <InfiniteScroll
-            hasMore={true}
-            initialLoad={false}
-            loadMore={() => {
-              console.log("Loading more...");
-            }}
-          >
-            {repos
-              .map((r) =>
-                r.language === "C++" ? { ...r, language: "cpp" } : r
-              )
-              .map((r) => (
-                <RepoList
-                  key={r.id}
-                  fullName={r.full_name}
-                  description={r.description}
-                  forks={r.forks_count}
-                  lang={r.language}
-                  stars={r.stargazers_count}
-                  handleClick={() => history.push(`/issues/${r.full_name}`)}
-                />
-              ))}
-          </InfiniteScroll>
-        </Container>
-      )}
+      <Container className="RepteoList__wrapper">
+        <InfiniteScroll
+          hasMore={repos.total_count > repos.items.length}
+          initialLoad={false}
+          loadMore={fetchRepo}
+          loader={<Loader />}
+          pageStart={0}
+        >
+          {repos.items
+            .map((r) => (r.language === "C++" ? { ...r, language: "cpp" } : r))
+            .map((r) => (
+              <RepoList
+                key={r.id}
+                fullName={r.full_name}
+                description={r.description}
+                forks={r.forks_count}
+                lang={r.language}
+                stars={r.stargazers_count}
+                handleClick={() => history.push(`/issues/${r.full_name}`)}
+              />
+            ))}
+        </InfiniteScroll>
+      </Container>
 
-      {searchText === null && repos.length === 0 ? (
+      {loading && repos.items.length === 0 && <Loader />}
+      {searchText === null && repos.items.length === 0 && (
         <Container className="search-text-wrapper">
           <div className="search-text">Search something</div>
         </Container>
-      ) : null}
+      )}
     </div>
   );
 };

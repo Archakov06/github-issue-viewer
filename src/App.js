@@ -11,7 +11,7 @@ export const ReposContext = React.createContext(null);
 export const SearchContext = React.createContext(null);
 
 function App() {
-  const [repos, setRepos] = useState([]);
+  const [repos, setRepos] = useState({ total_count: 0, items: [] });
 
   return (
     <Router>
