@@ -27,7 +27,6 @@ const Issues = ({ owner, repo, closed }) => {
     }
   };
 
-  console.log(issues);
 
   useEffect(() => {
     fetchIssues();
@@ -37,6 +36,7 @@ const Issues = ({ owner, repo, closed }) => {
     <div>
       <InfiniteScroll
         pageStart={0}
+        height={500}
         loadMore={fetchIssues}
         hasMore={issues.total_count > issues.items.length}
         initialLoad={false}
@@ -48,7 +48,7 @@ const Issues = ({ owner, repo, closed }) => {
               <Card.Title>{i.title}</Card.Title>
               <Card.Text>{`${i.body.substring(0, 128)}${
                 i.body.length > 128 && "..."
-              }`}</Card.Text>
+                }`}</Card.Text>
             </Card.Body>
             <Card.Footer className="text-muted">
               {`#${i.number} opened by ${i.user.login}`}
@@ -61,23 +61,58 @@ const Issues = ({ owner, repo, closed }) => {
 };
 
 export const IssuesPage = () => {
-  const { owner, repo } = useParams();
+  const { owner, repo, issues } = useParams();
+  const [displayWidth, setDisplayWidth] = useState(null)
 
   const history = useHistory();
 
+  useEffect(() => {
+    window.addEventListener('resize', () => setDisplayWidth(window.screen.width))
+    console.log(displayWidth);
+  }, [displayWidth]);
+
+
+
   return (
-    <div className="issueMenu">
-      <Button variant="light" onClick={() => history.goBack()}>
-        Back
-      </Button>
-      <Tabs defaultActiveKey="open">
-        <Tab eventKey="open" title="Open">
-          <Issues owner={owner} repo={repo} closed="open" />
-        </Tab>
-        <Tab eventKey="closed" title="Closed">
-          <Issues owner={owner} repo={repo} closed="closed" />
-        </Tab>
-      </Tabs>
-    </div>
+
+
+
+    <div >
+
+
+      {
+        displayWidth < 768 ? (<div className="issueMenu">
+          <Button variant="light" onClick={() => history.goBack()}>
+            Back
+  </Button>
+          <Tabs defaultActiveKey="open">
+            <Tab eventKey="open" title={`${23} Open`}>
+              <Issues owner={owner} repo={repo} closed="open" />
+            </Tab>
+            <Tab eventKey="closed" title="Closed">
+              <Issues owner={owner} repo={repo} closed="closed" />
+            </Tab>
+          </Tabs>
+        </div>) : (
+            <div className="d-flex">
+              <div className="issueMenu">
+                <Button variant="light" onClick={() => history.goBack()}>
+                  Back
+  </Button>
+                <Tabs defaultActiveKey="open">
+                  <Tab eventKey="open" title={`${23} Open`}>
+                    <Issues owner={owner} repo={repo} closed="open" />
+                  </Tab>
+                  <Tab eventKey="closed" title="Closed">
+                    <Issues owner={owner} repo={repo} closed="closed" />
+                  </Tab>
+                </Tabs>
+              </div>
+              <div><IssuesContent /></div>
+            </div>)
+      }
+
+
+    </div >
   );
 };
