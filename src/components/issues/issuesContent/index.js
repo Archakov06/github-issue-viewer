@@ -1,33 +1,45 @@
 import React from "react";
 
 import { CardItem } from "./cardItem";
-import { Labels } from "./Labels";
 
 import "./issuesPage.scss";
+import { Loader } from "../../Loader";
 
-export function IssuesContent() {
-  let opened = 4;
+export function IssuesContent({
+  title,
+  number,
+  username,
+  body,
+  labels,
+  loading,
+  id,
+  avatar_url,
+  created_at,
+  textContent,
+}) {
   return (
     <div className="issues-page">
       <div className="issues-page__wrapper">
-        <h1>
-          No puedo iniciar sesion{" "}
-          <span className="tittle_opened">#{opened}</span>
-        </h1>
-        <p>
-          opened by {`username`} on {`date`}
-        </p>
-        <div className="text-card">
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <CardItem />
-          <Labels />
-        </div>
+        {id && loading && <Loader />}
+
+        {id && !loading && (
+          <>
+            <h1>
+              {title} <span className="tittle_opened">#{number}</span>
+            </h1>
+            <div className="text-card">
+              <CardItem
+                avatar_url={avatar_url}
+                created_at={created_at}
+                labels={labels}
+                textContent={textContent}
+                username={username}
+              />
+            </div>
+          </>
+        )}
+
+        {!id && <h3 className="text-muted">Select an issue first</h3>}
       </div>
     </div>
   );

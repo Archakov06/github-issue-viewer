@@ -1,30 +1,11 @@
 .label-wrapper {
-
-    background: linear-gradient(360deg, rgba(255, 255, 255, 1) 0%, rgba(0, 0, 0, 0) 150%);
-    position: fixed;
-    height: 5vh;
-    bottom: 0;
-    color: white;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-
+    color: white;
+    
     .badge {
         margin: 0 0.2vw;
+        &:first-child{
+            margin-left: 0px;
+        }
     }
-
-
-
-    @media (min-width: 200px) and (max-width: 767px) {
-        width: 90%;
-    }
-
-    @media (min-width: 768px) and (max-width: 991px) {
-        width: 59%;
-    }
-
-    @media (min-width: 992px) {
-        width: 64%;
-    }
-
 }

@@ -22,7 +22,9 @@ export function RepoList({
             <span>{fullName}</span>
           </a>
         </Card.Title>
-        <Card.Text>{description}</Card.Text>
+        <Card.Text>{`${description && description.substring(0, 250)}${
+          description.length > 250 && "..."
+        }`}</Card.Text>
         <footer>
           {lang && (
             <span>
